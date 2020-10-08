@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import SearchBox from './components/SearchBox';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const Div = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+`;
+
+function App(){
+
+    const  [ searchText, setSearchText ] = useState('');
+    const [ list, setList ] = useState([]);
+
+    useEffect(()=>{
+
+      setList([
+     
+      ]);
+
+
+    }, []);
+
+
+    function addAction(newItem){
+      let newList = [ ...list, {title:newItem, done:false} ];
+      setList(newList);
+    }
+
+    return(
+      <Div>
+      <h1>Lista de Tarefas</h1>
+      
+      <SearchBox 
+        frasePadrao="Adicione um item a lista"
+        onEnter={addAction}
+        />
+      <hr/>
+      <p>Lista:</p>
+      <ul>
+        {list.map((item, index)=> (
+      
+      <li key={index}>
+      {item.done && 
+      <del>{item.title}</del>
+      }
+      {!item.done && 
+      item.title
+      }
+      </li>
+    ))}
+      </ul>
+
+      </Div>
+    );
 }
 
 export default App;
