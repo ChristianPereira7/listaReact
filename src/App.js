@@ -7,6 +7,7 @@ import './App.css';
 const Div = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #ffffff;
+
 `;
 
 function App(){
@@ -25,8 +26,15 @@ function App(){
 
 
     function addAction(newItem){
-      let newList = [ ...list, {title:newItem, done:false} ];
+      let newList = [ ...list];
+      newList.push({title:newItem, done:false});
       setList(newList);
+    }
+
+    function handleToggleDone(index){
+      let newList = [ ...list];
+      newList[index].done = !newList[index].done;
+      setList(newList); 
     }
 
     return(
@@ -49,6 +57,12 @@ function App(){
       {!item.done && 
       item.title
       }
+    
+      <button onClick={()=>handleToggleDone(index)}>
+        {item.done && 'Desfazer'}
+        {!item.done && 'Concluído'}
+      </button>
+    
       </li>
     ))}
       </ul>
